@@ -1,12 +1,12 @@
 {
-  "version": "7.2.3",
+  "version": "7.2.4",
   "releaseDate": "2025-12-11",
   "releaseNotes": [
-    "Added Check for Updates feature with notification badge",
-    "Auto-checks for updates on startup (once per 24 hours)",
-    "Shows release notes when update is available",
-    "Direct download link to latest release"
+    "Enhanced update system with auto-download",
+    "New 'Download Now?' confirmation modal with release notes",
+    "Toast notification shows instructions after download starts",
+    "Cancel option to defer update"
   ],
-  "downloadUrl": "https://github.com/FM-256/network-essentials/releases/latest",
-  "checkUrl": "https://raw.githubusercontent.com/FM-256/network-essentials/master/Home/version.json"
+  "downloadUrl": "https://github.com/FM-256/hexworth-academy/archive/refs/heads/main.zip",
+  "checkUrl": "https://raw.githubusercontent.com/FM-256/hexworth-academy/main/version.json"
 }
