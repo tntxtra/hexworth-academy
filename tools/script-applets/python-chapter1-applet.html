@@ -1384,15 +1384,15 @@ print(f"Is adult and passing? {is_adult and is_passing}")`
         }
 
         function getTypeString(value) {
-            if (value === null) return "<class 'NoneType'>";
-            if (typeof value === 'boolean') return "<class 'bool'>";
+            if (value === null) return "&lt;class 'NoneType'&gt;";
+            if (typeof value === 'boolean') return "&lt;class 'bool'&gt;";
             if (typeof value === 'number') {
-                return Number.isInteger(value) ? "<class 'int'>" : "<class 'float'>";
+                return Number.isInteger(value) ? "&lt;class 'int'&gt;" : "&lt;class 'float'&gt;";
             }
-            if (typeof value === 'string') return "<class 'str'>";
-            if (Array.isArray(value)) return "<class 'list'>";
-            if (typeof value === 'object') return "<class 'dict'>";
-            return "<class 'unknown'>";
+            if (typeof value === 'string') return "&lt;class 'str'&gt;";
+            if (Array.isArray(value)) return "&lt;class 'list'&gt;";
+            if (typeof value === 'object') return "&lt;class 'dict'&gt;";
+            return "&lt;class 'unknown'&gt;";
         }
 
         // ===================== QUIZ =====================
@@ -1425,10 +1425,10 @@ print(f"Is adult and passing? {is_adult and is_passing}")`
                 question: "What will be the output of this code?",
                 code: "print(type(\"Hello\"))",
                 options: [
-                    "<class 'text'>",
-                    "<class 'string'>",
-                    "<class 'str'>",
-                    "<class 'char'>"
+                    "&lt;class 'text'&gt;",
+                    "&lt;class 'string'&gt;",
+                    "&lt;class 'str'&gt;",
+                    "&lt;class 'char'&gt;"
                 ],
                 correct: 2,
                 explanation: "Python uses 'str' as the type name for strings, not 'string' or 'text'."
