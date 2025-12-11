@@ -5771,7 +5771,20 @@
                         {id: "SRV1", type: "server", name: "Web-Server", x: 550, y: 500},
                         {id: "SRV2", type: "server", name: "DB-Server", x: 700, y: 500}
                     ],
-                    connections: []
+                    connections: [
+                        {id: "conn-1", device1: "Edge-R1", device2: "Core-SW1", color: "#06b6d4"},
+                        {id: "conn-2", device1: "Core-SW1", device2: "Core-SW2", color: "#10b981"},
+                        {id: "conn-3", device1: "Core-SW1", device2: "Access-SW1", color: "#9333ea"},
+                        {id: "conn-4", device1: "Core-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-5", device1: "Core-SW2", device2: "Access-SW3", color: "#9333ea"},
+                        {id: "conn-6", device1: "Core-SW2", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-7", device1: "Access-SW1", device2: "PC1", color: "#f59e0b"},
+                        {id: "conn-8", device1: "Access-SW1", device2: "PC2", color: "#f59e0b"},
+                        {id: "conn-9", device1: "Access-SW2", device2: "PC3", color: "#f59e0b"},
+                        {id: "conn-10", device1: "Access-SW3", device2: "PC4", color: "#f59e0b"},
+                        {id: "conn-11", device1: "Access-SW4", device2: "SRV1", color: "#ec4899"},
+                        {id: "conn-12", device1: "Access-SW4", device2: "SRV2", color: "#ec4899"}
+                    ]
                 },
                 instructions: [
                     {step: 1, title: "Configure Edge Router WAN Interface", description: "Assign IP 203.0.113.2/30 to Gi0/0 (WAN link)", commands: ["enable", "conf t", "int Gi0/0", "ip address 203.0.113.2 255.255.255.252", "no shut"], completed: false},
@@ -5809,7 +5822,20 @@
                         {id: "SRV1", type: "server", name: "Web-Server", x: 550, y: 500},
                         {id: "SRV2", type: "server", name: "DB-Server", x: 700, y: 500}
                     ],
-                    connections: []
+                    connections: [
+                        {id: "conn-1", device1: "Edge-R1", device2: "Core-SW1", color: "#06b6d4"},
+                        {id: "conn-2", device1: "Core-SW1", device2: "Core-SW2", color: "#10b981"},
+                        {id: "conn-3", device1: "Core-SW1", device2: "Access-SW1", color: "#9333ea"},
+                        {id: "conn-4", device1: "Core-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-5", device1: "Core-SW2", device2: "Access-SW3", color: "#9333ea"},
+                        {id: "conn-6", device1: "Core-SW2", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-7", device1: "Access-SW1", device2: "PC1", color: "#f59e0b"},
+                        {id: "conn-8", device1: "Access-SW1", device2: "PC2", color: "#f59e0b"},
+                        {id: "conn-9", device1: "Access-SW2", device2: "PC3", color: "#f59e0b"},
+                        {id: "conn-10", device1: "Access-SW3", device2: "PC4", color: "#f59e0b"},
+                        {id: "conn-11", device1: "Access-SW4", device2: "SRV1", color: "#ec4899"},
+                        {id: "conn-12", device1: "Access-SW4", device2: "SRV2", color: "#ec4899"}
+                    ]
                 },
                 instructions: [
                     {step: 1, title: "Create VLANs on Access-SW1", description: "Create VLAN 10 (Sales), VLAN 20 (Engineering), VLAN 30 (Servers)", commands: ["vlan 10", "name Sales", "vlan 20", "name Engineering", "vlan 30", "name Servers", "exit"], completed: false},
@@ -5847,7 +5873,23 @@
                         {id: "SRV1", type: "server", name: "Web-Server", x: 550, y: 500},
                         {id: "SRV2", type: "server", name: "DB-Server", x: 700, y: 500}
                     ],
-                    connections: []
+                    connections: [
+                        {id: "conn-1", device1: "Edge-R1", device2: "Core-SW1", color: "#06b6d4"},
+                        {id: "conn-2", device1: "Edge-R1", device2: "Core-SW2", color: "#06b6d4"},
+                        {id: "conn-3", device1: "Core-SW1", device2: "Core-SW2", color: "#10b981"},
+                        {id: "conn-4", device1: "Core-SW1", device2: "Access-SW1", color: "#9333ea"},
+                        {id: "conn-5", device1: "Core-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-6", device1: "Core-SW2", device2: "Access-SW3", color: "#9333ea"},
+                        {id: "conn-7", device1: "Core-SW2", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-8", device1: "Access-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-9", device1: "Access-SW3", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-10", device1: "Access-SW1", device2: "PC1", color: "#f59e0b"},
+                        {id: "conn-11", device1: "Access-SW1", device2: "PC2", color: "#f59e0b"},
+                        {id: "conn-12", device1: "Access-SW2", device2: "PC3", color: "#f59e0b"},
+                        {id: "conn-13", device1: "Access-SW3", device2: "PC4", color: "#f59e0b"},
+                        {id: "conn-14", device1: "Access-SW4", device2: "SRV1", color: "#ec4899"},
+                        {id: "conn-15", device1: "Access-SW4", device2: "SRV2", color: "#ec4899"}
+                    ]
                 },
                 instructions: [
                     {step: 1, title: "Enable Rapid PVST+", description: "Configure all switches to use Rapid Spanning Tree", commands: ["spanning-tree mode rapid-pvst"], completed: false},
@@ -5885,7 +5927,23 @@
                         {id: "SRV1", type: "server", name: "Web-Server", x: 550, y: 500},
                         {id: "SRV2", type: "server", name: "DB-Server", x: 700, y: 500}
                     ],
-                    connections: []
+                    connections: [
+                        {id: "conn-1", device1: "Edge-R1", device2: "Core-SW1", color: "#06b6d4"},
+                        {id: "conn-2", device1: "Edge-R1", device2: "Core-SW2", color: "#06b6d4"},
+                        {id: "conn-3", device1: "Core-SW1", device2: "Core-SW2", color: "#10b981"},
+                        {id: "conn-4", device1: "Core-SW1", device2: "Access-SW1", color: "#9333ea"},
+                        {id: "conn-5", device1: "Core-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-6", device1: "Core-SW2", device2: "Access-SW3", color: "#9333ea"},
+                        {id: "conn-7", device1: "Core-SW2", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-8", device1: "Access-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-9", device1: "Access-SW3", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-10", device1: "Access-SW1", device2: "PC1", color: "#f59e0b"},
+                        {id: "conn-11", device1: "Access-SW1", device2: "PC2", color: "#f59e0b"},
+                        {id: "conn-12", device1: "Access-SW2", device2: "PC3", color: "#f59e0b"},
+                        {id: "conn-13", device1: "Access-SW3", device2: "PC4", color: "#f59e0b"},
+                        {id: "conn-14", device1: "Access-SW4", device2: "SRV1", color: "#ec4899"},
+                        {id: "conn-15", device1: "Access-SW4", device2: "SRV2", color: "#ec4899"}
+                    ]
                 },
                 instructions: [
                     {step: 1, title: "Remove Static Routes", description: "Clear existing static routes from Edge Router", commands: ["no ip route 192.168.0.0 255.255.0.0 10.0.0.2"], completed: false},
@@ -5927,7 +5985,26 @@
                         {id: "Remote-PC1", type: "pc", name: "Remote-PC1", x: 750, y: 350},
                         {id: "Remote-PC2", type: "pc", name: "Remote-PC2", x: 850, y: 350}
                     ],
-                    connections: []
+                    connections: [
+                        {id: "conn-1", device1: "Edge-R1", device2: "Core-SW1", color: "#06b6d4"},
+                        {id: "conn-2", device1: "Edge-R1", device2: "Core-SW2", color: "#06b6d4"},
+                        {id: "conn-3", device1: "Core-SW1", device2: "Core-SW2", color: "#10b981"},
+                        {id: "conn-4", device1: "Core-SW1", device2: "Access-SW1", color: "#9333ea"},
+                        {id: "conn-5", device1: "Core-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-6", device1: "Core-SW2", device2: "Access-SW3", color: "#9333ea"},
+                        {id: "conn-7", device1: "Core-SW2", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-8", device1: "Access-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-9", device1: "Access-SW3", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-10", device1: "Access-SW1", device2: "PC1", color: "#f59e0b"},
+                        {id: "conn-11", device1: "Access-SW1", device2: "PC2", color: "#f59e0b"},
+                        {id: "conn-12", device1: "Access-SW2", device2: "PC3", color: "#f59e0b"},
+                        {id: "conn-13", device1: "Access-SW3", device2: "PC4", color: "#f59e0b"},
+                        {id: "conn-14", device1: "Access-SW4", device2: "SRV1", color: "#ec4899"},
+                        {id: "conn-15", device1: "Access-SW4", device2: "SRV2", color: "#ec4899"},
+                        {id: "conn-16", device1: "Edge-R1", device2: "Remote-R1", color: "#06b6d4"},
+                        {id: "conn-17", device1: "Remote-R1", device2: "Remote-PC1", color: "#f59e0b"},
+                        {id: "conn-18", device1: "Remote-R1", device2: "Remote-PC2", color: "#f59e0b"}
+                    ]
                 },
                 instructions: [
                     {step: 1, title: "Configure WAN Link to Remote Site", description: "Add new interface on Edge Router for remote branch", commands: ["int Gi0/2", "ip address 10.10.10.1 255.255.255.252", "no shut", "exit"], completed: false},
@@ -5969,7 +6046,26 @@
                         {id: "Remote-PC1", type: "pc", name: "Remote-PC1", x: 750, y: 350},
                         {id: "Remote-PC2", type: "pc", name: "Remote-PC2", x: 850, y: 350}
                     ],
-                    connections: []
+                    connections: [
+                        {id: "conn-1", device1: "Edge-R1", device2: "Core-SW1", color: "#06b6d4"},
+                        {id: "conn-2", device1: "Edge-R1", device2: "Core-SW2", color: "#06b6d4"},
+                        {id: "conn-3", device1: "Core-SW1", device2: "Core-SW2", color: "#10b981"},
+                        {id: "conn-4", device1: "Core-SW1", device2: "Access-SW1", color: "#9333ea"},
+                        {id: "conn-5", device1: "Core-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-6", device1: "Core-SW2", device2: "Access-SW3", color: "#9333ea"},
+                        {id: "conn-7", device1: "Core-SW2", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-8", device1: "Access-SW1", device2: "Access-SW2", color: "#9333ea"},
+                        {id: "conn-9", device1: "Access-SW3", device2: "Access-SW4", color: "#9333ea"},
+                        {id: "conn-10", device1: "Access-SW1", device2: "PC1", color: "#f59e0b"},
+                        {id: "conn-11", device1: "Access-SW1", device2: "PC2", color: "#f59e0b"},
+                        {id: "conn-12", device1: "Access-SW2", device2: "PC3", color: "#f59e0b"},
+                        {id: "conn-13", device1: "Access-SW3", device2: "PC4", color: "#f59e0b"},
+                        {id: "conn-14", device1: "Access-SW4", device2: "SRV1", color: "#ec4899"},
+                        {id: "conn-15", device1: "Access-SW4", device2: "SRV2", color: "#ec4899"},
+                        {id: "conn-16", device1: "Edge-R1", device2: "Remote-R1", color: "#06b6d4"},
+                        {id: "conn-17", device1: "Remote-R1", device2: "Remote-PC1", color: "#f59e0b"},
+                        {id: "conn-18", device1: "Remote-R1", device2: "Remote-PC2", color: "#f59e0b"}
+                    ]
                 },
                 instructions: [
                     {step: 1, title: "Configure HSRP on Core-SW1", description: "Set up HSRP group 10 for VLAN 10 gateway redundancy", commands: ["int vlan 10", "standby 10 ip 192.168.10.254", "standby 10 priority 110", "standby 10 preempt", "exit"], completed: false},
@@ -8234,6 +8330,7 @@
             else if (intfName.toLowerCase().startsWith('fa')) normalized = 'FastEthernet' + intfName.substring(2).replace(/stethernet/i, '');
             else if (intfName.toLowerCase().startsWith('vlan')) normalized = 'Vlan' + intfName.substring(4).trim();
             else if (intfName.toLowerCase().startsWith('se')) normalized = 'Serial' + intfName.substring(2).replace(/rial/i, '');
+            else if (intfName.toLowerCase().startsWith('lo')) normalized = 'Loopback' + intfName.replace(/^(lo|loop|loopback)\s*/i, '');
 
             // Strip non-alphanumeric for comparison (fixes Gi0/1 vs GigabitEthernet0/1 matching)
             const normalizedStripped = normalized.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -8242,8 +8339,15 @@
                 return intfStripped === normalizedStripped || intfStripped.includes(normalizedStripped);
             });
 
+            // Auto-create VLAN interfaces (SVIs) on demand
             if (!intf && normalized.toLowerCase().startsWith('vlan')) {
                 intf = { name: normalized, ip: '', mask: '', status: 'down' };
+                device.interfaces.push(intf);
+            }
+
+            // Auto-create Loopback interfaces on demand (virtual interfaces for router-id, testing)
+            if (!intf && normalized.toLowerCase().startsWith('loopback')) {
+                intf = { name: normalized, ip: '', mask: '', status: 'up' };
                 device.interfaces.push(intf);
             }
 

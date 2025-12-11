@@ -1,6 +1,6 @@
 ============================================
   HEXWORTH ACADEMY - Network Essentials
-  Version 7.1.0
+  Version 7.1.2
 ============================================
 
 GETTING STARTED:
