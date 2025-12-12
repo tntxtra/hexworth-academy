@@ -859,17 +859,166 @@ spans several lines."""</span></code>
         }
 
         function evalStringOperation(input) {
-            // Safe evaluation of string operations
-            // This is a simplified interpreter for educational purposes
+            // Python-to-JavaScript string operation translator
+            // Supports common Python string operations
 
-            // Handle string literals and operations
             try {
-                // Create a safe evaluation context
-                const safeEval = new Function('return ' + input);
+                let jsCode = input.trim();
+
+                // Handle Python slice notation: "string"[start:end:step]
+                const sliceRegex = /^(["'].*?["'])\[(-?\d*):(-?\d*):?(-?\d*)?\]$/;
+                const sliceMatch = jsCode.match(sliceRegex);
+                if (sliceMatch) {
+                    const str = eval(sliceMatch[1]);
+                    const start = sliceMatch[2] === '' ? undefined : parseInt(sliceMatch[2]);
+                    const end = sliceMatch[3] === '' ? undefined : parseInt(sliceMatch[3]);
+                    const step = sliceMatch[4] === '' || sliceMatch[4] === undefined ? 1 : parseInt(sliceMatch[4]);
+                    return pythonSlice(str, start, end, step);
+                }
+
+                // Handle simple index access: "string"[index]
+                const indexRegex = /^(["'].*?["'])\[(-?\d+)\]$/;
+                const indexMatch = jsCode.match(indexRegex);
+                if (indexMatch) {
+                    const str = eval(indexMatch[1]);
+                    let index = parseInt(indexMatch[2]);
+                    if (index < 0) index = str.length + index;
+                    if (index < 0 || index >= str.length) throw new Error('Index out of range');
+                    return str[index];
+                }
+
+                // Handle string multiplication: "string" * n or n * "string"
+                const multRegex1 = /^(["'].*?["'])\s*\*\s*(\d+)$/;
+                const multRegex2 = /^(\d+)\s*\*\s*(["'].*?["'])$/;
+                const multMatch1 = jsCode.match(multRegex1);
+                const multMatch2 = jsCode.match(multRegex2);
+                if (multMatch1) {
+                    const str = eval(multMatch1[1]);
+                    const n = parseInt(multMatch1[2]);
+                    return str.repeat(n);
+                }
+                if (multMatch2) {
+                    const n = parseInt(multMatch2[1]);
+                    const str = eval(multMatch2[2]);
+                    return str.repeat(n);
+                }
+
+                // Handle string concatenation: "string1" + "string2"
+                const concatRegex = /^(["'].*?["'])\s*\+\s*(["'].*?["'])$/;
+                const concatMatch = jsCode.match(concatRegex);
+                if (concatMatch) {
+                    return eval(concatMatch[1]) + eval(concatMatch[2]);
+                }
+
+                // Handle len("string")
+                const lenRegex = /^len\((["'].*?["'])\)$/;
+                const lenMatch = jsCode.match(lenRegex);
+                if (lenMatch) {
+                    return eval(lenMatch[1]).length;
+                }
+
+                // Translate Python string methods to JavaScript
+                jsCode = jsCode
+                    // Case methods
+                    .replace(/\.upper\(\)/g, '.toUpperCase()')
+                    .replace(/\.lower\(\)/g, '.toLowerCase()')
+                    .replace(/\.capitalize\(\)/g, '.replace(/^./, m => m.toUpperCase())')
+                    .replace(/\.title\(\)/g, '.replace(/\\b\\w/g, m => m.toUpperCase())')
+                    .replace(/\.swapcase\(\)/g, '.split("").map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join("")')
+
+                    // Whitespace methods
+                    .replace(/\.strip\(\)/g, '.trim()')
+                    .replace(/\.strip\((["'].*?["'])\)/g, '.replace(new RegExp("^[" + $1 + "]+|[" + $1 + "]+$", "g"), "")')
+                    .replace(/\.lstrip\(\)/g, '.trimStart()')
+                    .replace(/\.rstrip\(\)/g, '.trimEnd()')
+
+                    // Search/check methods
+                    .replace(/\.find\((["'].*?["'])\)/g, '.indexOf($1)')
+                    .replace(/\.rfind\((["'].*?["'])\)/g, '.lastIndexOf($1)')
+                    .replace(/\.index\((["'].*?["'])\)/g, '.indexOf($1)')
+                    .replace(/\.startswith\((["'].*?["'])\)/g, '.startsWith($1)')
+                    .replace(/\.endswith\((["'].*?["'])\)/g, '.endsWith($1)')
+                    .replace(/\.isdigit\(\)/g, '.match(/^\\d+$/) !== null')
+                    .replace(/\.isalpha\(\)/g, '.match(/^[a-zA-Z]+$/) !== null')
+                    .replace(/\.isalnum\(\)/g, '.match(/^[a-zA-Z0-9]+$/) !== null')
+                    .replace(/\.isspace\(\)/g, '.match(/^\\s+$/) !== null')
+                    .replace(/\.isupper\(\)/g, ' === $&.toUpperCase() && $&.match(/[a-zA-Z]/)')
+                    .replace(/\.islower\(\)/g, ' === $&.toLowerCase() && $&.match(/[a-zA-Z]/)')
+
+                    // Modification methods
+                    .replace(/\.replace\((["'].*?["']),\s*(["'].*?["'])\)/g, '.split($1).join($2)')
+                    .replace(/\.center\((\d+)\)/g, '.padStart(Math.ceil(($1 + $&.length) / 2)).padEnd($1)')
+                    .replace(/\.ljust\((\d+)\)/g, '.padEnd($1)')
+                    .replace(/\.rjust\((\d+)\)/g, '.padStart($1)')
+                    .replace(/\.zfill\((\d+)\)/g, '.padStart($1, "0")')
+
+                    // Split/join
+                    .replace(/\.split\(\)/g, '.split(/\\s+/)')
+                    .replace(/\.split\((["'].*?["'])\)/g, '.split($1)')
+                    .replace(/\.join\(\[(.*?)\]\)/g, (match, items) => {
+                        return '[' + items + '].join($&.replace(".join([" + items + "])", "").match(/^["\'](.*)["\']$/)[1])';
+                    })
+
+                    // Count
+                    .replace(/\.count\((["'].*?["'])\)/g, '.split($1).length - 1');
+
+                // Handle join specially: "-".join(["a", "b", "c"])
+                const joinRegex = /^(["'].*?["'])\.join\(\[(.*?)\]\)$/;
+                const joinMatch = jsCode.match(joinRegex);
+                if (joinMatch) {
+                    const separator = eval(joinMatch[1]);
+                    const items = eval('[' + joinMatch[2] + ']');
+                    return items.join(separator);
+                }
+
+                // Execute the translated JavaScript
+                const safeEval = new Function('return ' + jsCode);
                 return safeEval();
             } catch (e) {
-                throw new Error('Invalid Python string operation');
+                throw new Error('Invalid Python string operation. Try: "Hello".upper(), "Python"[0:3], "ha" * 3');
             }
+        }
+
+        // Python-style slice function
+        function pythonSlice(str, start, end, step = 1) {
+            const len = str.length;
+
+            if (step === 0) throw new Error('slice step cannot be zero');
+
+            // Handle negative step (reverse)
+            if (step < 0) {
+                // Default values for reverse
+                if (start === undefined) start = len - 1;
+                if (end === undefined) end = -len - 1;
+
+                // Normalize negative indices
+                if (start < 0) start = Math.max(-1, len + start);
+                if (end < 0 && end !== -len - 1) end = len + end;
+
+                let result = '';
+                for (let i = start; i > end && i >= 0; i += step) {
+                    if (i < len) result += str[i];
+                }
+                return result;
+            }
+
+            // Handle positive step
+            if (start === undefined) start = 0;
+            if (end === undefined) end = len;
+
+            // Normalize negative indices
+            if (start < 0) start = Math.max(0, len + start);
+            if (end < 0) end = Math.max(0, len + end);
+
+            // Clamp to bounds
+            start = Math.max(0, Math.min(len, start));
+            end = Math.max(0, Math.min(len, end));
+
+            let result = '';
+            for (let i = start; i < end; i += step) {
+                result += str[i];
+            }
+            return result;
         }
 
         function clearExplorer() {
